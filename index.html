@@ -3,37 +3,45 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <div id="header">
+      <input type="text" id="inputbox">
+      <button id="tweet">Tweet!</button>
+      <button id="home">Home</button>
+    </div>
+    <div id="main"></div>
+
     <script>
-
       $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+        // var $('#main') = $('#main');
+        var target = streams.home;
+        // var target = streams.users.mracus;
 
-        var index = 0;
         var refreshBody = function(){
-          while(index < streams.home.length){
-            var tweet = streams.home[index];
+          $('#main').html('');
+          for (var index=0; index< target.length; index++) {
+            var tweet = target[index];
             var $tweet = $('<div></div>');
             $tweet.text('@' + tweet.user + ': ' + tweet.message + ' [' + tweet.created_at.toLocaleString() + ']');
-            $tweet.prependTo($body);
-            index++;
+            $tweet.attr("id", tweet.user);
+            $tweet.prependTo($('#main'));
+            console.log(target[0]);
           };
         };
 
-        setInterval(refreshBody, 1000);
-        // var index = streams.home.length - 1;
-        // while(index >= 0){
-        //   var tweet = streams.home[index];
-        //   var $tweet = $('<div></div>');
-        //   $tweet.text('@' + tweet.user + ': ' + tweet.message);
-        //   $tweet.appendTo($body);
-        //   index -= 1;
-        // }
+        $("#main").on("click", "div", function(){
+          target = "streams.users." ;
+          target += $(this).attr("id");
+        });
 
+        $("#home").on("click", function(){
+          target = streams.home;
+        });
+
+        setInterval(refreshBody, 2000);
       });
-
     </script>
   </body>
 </html>

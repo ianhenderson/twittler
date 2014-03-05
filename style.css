@@ -1,0 +1,12 @@
+#header {
+}
+#main {
+	border-style: double;
+	width: 800px;
+	height: 800px;
+	padding: 10px;
+	overflow: auto;
+}
+#inputbox {
+	width: 700px;
+}
