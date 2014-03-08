@@ -15,26 +15,27 @@
 
     <script>
       $(document).ready(function(){
-        // var $('#main') = $('#main');
         var target = streams.home;
-        // var target = streams.users.mracus;
+        // var target = streams.users.mracus; // For testing purposes.
 
         var refreshBody = function(){
           $('#main').html('');
-          for (var index=0; index< target.length; index++) {
+          for (var index=0; index<target.length; index++) {
             var tweet = target[index];
             var $tweet = $('<div></div>');
             $tweet.text('@' + tweet.user + ': ' + tweet.message + ' [' + tweet.created_at.toLocaleString() + ']');
             $tweet.attr("id", tweet.user);
             $tweet.prependTo($('#main'));
-            console.log(target[0]);
           };
         };
 
-        $("#main").on("click", "div", function(){
-          target = "streams.users." ;
-          target += $(this).attr("id");
-        });
+        // This should allow viewing of a single users timeline but
+        // doesn't work at the moment.
+
+        // $("#main").on("click", "div", function(){
+        //   target = $(this).attr("id");
+        //   target = "streams.users." + target;
+        // });
 
         $("#home").on("click", function(){
           target = streams.home;
