@@ -28,16 +28,17 @@
           $('#main').html('');
           for (var index=0; index<target.length; index++) {
             var tweet = target[index];
-            var $tweet = $('<div></div>');
-            $tweet.text('@' + tweet.user + ': ' + tweet.message + ' [' + tweet.created_at.toLocaleString() + ']');
+            var $tweet = $('<div><span id="tweetfront"></span><span id="tweetbody"></span></div>');
+            $tweet.find("#tweetfront").text('@' + tweet.user);
+            $tweet.find("#tweetbody").text(': ' + tweet.message + ' [' + tweet.created_at.toLocaleString() + ']');
             $tweet.attr("id", tweet.user);
             $tweet.prependTo($('#main'));
           };
         };
 
         // Click on name to view that user's timeline.
-        $("#main").on("click", "div", function(){
-          target = $(this).attr("id");
+        $("#main").on("click", "#tweetfront", function(){
+          target = $(this).closest("div").attr("id");
           target = streams.users[target];
         });
 
