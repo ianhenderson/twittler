@@ -8,7 +8,6 @@
   <body>
     <div id="header">
       <input type="text" id="inputbox" autofocus placeholder="Type message here and press ENTER!">
-      <!-- <button id="tweet">Tweet!</button> -->
       <button id="home">View Home Stream</button>
     </div>
 
@@ -19,7 +18,6 @@
 
         // Stream to be displayed.
         var target = streams.home;
-        // var target = streams.users.mracus;
 
         // Prompt for username and initialize stream.
         visitor = prompt("Please enter your name:", "visitor") || "visitor";
@@ -37,22 +35,16 @@
           };
         };
 
-        // This should allow viewing of a single users timeline but doesn't work at the moment.
-        // $("#main").on("click", "div", function(){
-        //   target = $(this).attr("id");
-        //   target = "streams.users." + target;
-        // });
+        // Click on name to view that user's timeline.
+        $("#main").on("click", "div", function(){
+          target = $(this).attr("id");
+          target = streams.users[target];
+        });
 
         // Resets display to show all tweets.
         $("#home").on("click", function(){
           target = streams.home;
         });
-
-        // $("#tweet").on("click", function(){
-        //   var message = $("#inputbox").val();
-        //   writeTweet(message);
-
-        // });
 
         // Allows user to tweet.
         $("#inputbox").keypress(function(e){
@@ -61,7 +53,6 @@
             writeTweet(message);
             $(this).val("");
           }
-          // return false;
         });
 
         // Redisplays stream every 2 seconds.
