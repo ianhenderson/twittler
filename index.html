@@ -7,17 +7,25 @@
   </head>
   <body>
     <div id="header">
-      <input type="text" id="inputbox">
-      <button id="tweet">Tweet!</button>
-      <button id="home">Home</button>
+      <input type="text" id="inputbox" autofocus placeholder="Type message here and press ENTER!">
+      <!-- <button id="tweet">Tweet!</button> -->
+      <button id="home">View Home Stream</button>
     </div>
+
     <div id="main"></div>
 
     <script>
       $(document).ready(function(){
-        var target = streams.home;
-        // var target = streams.users.mracus; // For testing purposes.
 
+        // Stream to be displayed.
+        var target = streams.home;
+        // var target = streams.users.mracus;
+
+        // Prompt for username and initialize stream.
+        visitor = prompt("Please enter your name:", "visitor") || "visitor";
+        streams.users[visitor] = [];
+
+        // Displays stream indicated by 'target' variable in main window.
         var refreshBody = function(){
           $('#main').html('');
           for (var index=0; index<target.length; index++) {
@@ -29,18 +37,34 @@
           };
         };
 
-        // This should allow viewing of a single users timeline but
-        // doesn't work at the moment.
-
+        // This should allow viewing of a single users timeline but doesn't work at the moment.
         // $("#main").on("click", "div", function(){
         //   target = $(this).attr("id");
         //   target = "streams.users." + target;
         // });
 
+        // Resets display to show all tweets.
         $("#home").on("click", function(){
           target = streams.home;
         });
 
+        // $("#tweet").on("click", function(){
+        //   var message = $("#inputbox").val();
+        //   writeTweet(message);
+
+        // });
+
+        // Allows user to tweet.
+        $("#inputbox").keypress(function(e){
+          if (e.which == 13){
+            var message = $(this).val();
+            writeTweet(message);
+            $(this).val("");
+          }
+          // return false;
+        });
+
+        // Redisplays stream every 2 seconds.
         setInterval(refreshBody, 2000);
       });
     </script>
