@@ -3,6 +3,7 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -30,7 +31,7 @@
             var tweet = target[index];
             var $tweet = $('<div><span id="tweetfront"></span><span id="tweetbody"></span></div>');
             $tweet.find("#tweetfront").text('@' + tweet.user);
-            $tweet.find("#tweetbody").text(': ' + tweet.message + ' [' + tweet.created_at.toLocaleString() + ']');
+            $tweet.find("#tweetbody").text(': ' + tweet.message + ' [' + moment(tweet.created_at).fromNow() + ']');
             $tweet.attr("id", tweet.user);
             $tweet.prependTo($('#main'));
           };
